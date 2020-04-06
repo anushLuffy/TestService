@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="1" author="anush">
+		<createTable tableName="USER">
+			<column name="ID" type="INT(11)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATED_TS" type="DATETIME"
+				defaultValueDate="CURRENT_TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+			<column name="CREATED_BY" type="VARCHAR(45)" />
+			<column name="UPDATED_TS" type="DATETIME" />
+			<column name="UPDATED_BY" type="VARCHAR(45)" />
+			<column name="FIRST_NAME" type="VARCHAR(100)" />
+			<column name="LAST_NAME" type="VARCHAR(50)" />
+			<column name="EMAIL_ID" type="VARCHAR(100)" />
+			<column name="MOBILE_NUMBER" type="VARCHAR(50)" />
+			<column name="PASSWORD" type="VARCHAR(500)" />
+		</createTable>
+		
+		<createTable tableName="ORDERS" autoIncrement="true" >
+			<column name="ID" type="INT(11)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATED_TS" type="DATETIME"
+				defaultValueDate="CURRENT_TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" />
+			<column name="CREATED_BY" type="VARCHAR(45)" />
+			<column name="UPDATED_TS" type="DATETIME" />
+			<column name="UPDATED_BY" type="VARCHAR(45)" />
+			<column name="USER_ID" type="INT(11)" >
+				<constraints foreignKeyName="FK_USER_ID" referencedTableName="USER" referencedColumnNames="ID"/>
+			</column>
+			<column name="ORDER_NUMBER" type="VARCHAR(50)" />
+			<column name="CUSTOMER_NAME" type="VARCHAR(50)" />
+			<column name="CUSTOMER_NUMBER" type="VARCHAR(50)" />
+		</createTable>
+		
+		<createTable tableName="ORDERS_ITEMS" autoIncrement="true" >
+			<column name="ID" type="INT(11)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATED_TS" type="DATETIME"
+				defaultValueDate="CURRENT_TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP" />
+			<column name="CREATED_BY" type="VARCHAR(45)" />
+			<column name="UPDATED_TS" type="DATETIME" />
+			<column name="UPDATED_BY" type="VARCHAR(45)" />
+			<column name="ORDER_ID" type="INT(11)" >
+				<constraints foreignKeyName="FK_ORDER_ID" referencedTableName="ORDERS" referencedColumnNames="ID"/>
+			</column>
+			<column name="ORDER_ITEM_NAME" type="VARCHAR(100)" />
+			<column name="ORDER_ITEM_NUMBER" type="VARCHAR(100)" />
+			<column name="ITEM_QUANTITY" type="DOUBLE" defaultValue="0"/>
+			<column name="ITEM_PRICE" type="DOUBLE" defaultValue="0"/>
+		</createTable>
+	 </changeSet>
+	 
+	 <changeSet id="2" author="anush">
+	 	 <addColumn tableName="ORDERS">
+	 			<column name="TOTAL" type="DOUBLE" defaultValue="0"/>
+	 </addColumn>
+	  <addColumn tableName="ORDERS_ITEMS">
+	 			<column name="PER_PRICE" type="DOUBLE" defaultValue="0"/>
+	 </addColumn>
+	 </changeSet>	
+</databaseChangeLog>
