@@ -30,7 +30,7 @@ public class Tasks {
 //	public void run1() throws InterruptedException {
 //		logger.info("Current Fixed time is :: " + Calendar.getInstance().getTime());
 ////		TimeUnit.SECONDS.sleep(3);
-//	}
+//	}.
 //	
 //	 @Scheduled(cron="*/5 * * * * ?")
 //	    public void demoServiceMethod()
