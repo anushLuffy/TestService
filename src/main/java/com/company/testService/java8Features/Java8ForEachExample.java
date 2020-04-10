@@ -12,17 +12,27 @@ public class Java8ForEachExample {
 		for(int i=0; i<10; i++) list.add(i);
 		
 		//traversing using Iterator
+		long t1 = System.currentTimeMillis();
+		
 		Iterator<Integer> it = list.iterator();
 		while(it.hasNext()){
 					Integer i = it.next();
 					System.out.println("Iterator Value::"+i);
 		}
+		long t2 = System.currentTimeMillis();
+		System.out.println(t2-t1);
+		MyConsumer action = new MyConsumer();
+		list.forEach(action);
+		
+		long t3 = System.currentTimeMillis();
+		System.out.println(t3-t2);
+		
+		
 		list.forEach(( a )->{
 			System.out.println("Foreach  Value::"+a);
 		});
-		
-		MyConsumer action = new MyConsumer();
-		list.forEach(action);
+		long t4 = System.currentTimeMillis();
+		System.out.println(t4-t3);
 	}
 
 }
